@@ -2,7 +2,7 @@
     <div class="background">
         <div class="allContainer">
             <div class="container sentences">
-                <h2>Sentences / Frases </h2>
+                <h2>To Do / Hacer </h2>
                 <button @click="popWindowOpen"><img :src="add" alt="" class="addimg"></button>
                 <trajetasView />
             </div>
@@ -87,11 +87,11 @@ button {
 
 .close {
     position: absolute;
-    background-color: rgba(61, 61, 61, 0.426);
+    background-color: rgba(108, 106, 106, 0.426);
     width: 99.5%;
     height: 99.5%;
-    margin-top: -1px;
-
+    margin-top: -25px;
+    backdrop-filter: blur(2px);
 }
 
 .pop {
@@ -114,10 +114,13 @@ button {
     scrollbar-color: red;
     box-shadow: 13px 12px 20px rgba(43, 43, 43, 0.559);
     border-radius: 7px;
+    margin-top: 15px;
 }
 
 .allContainer {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 40px 0px 0px;
 }
 </style>

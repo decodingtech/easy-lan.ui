@@ -34,7 +34,7 @@
 import { RouterLink, RouterView } from 'vue-router';
 export default {
     setup() {
-        const imagen1 = '../../public/favicon.ico';
+        const imagen1 = '../../public/Logo2.png ';
         const imagen2 = '../../public/user.png';
 
         const send = () => {
@@ -42,7 +42,6 @@ export default {
             const pass = document.getElementById("password").value;
             console.log(username);
             console.log(pass);
-            console.log(this.posts[0])
         }
 
         return {
@@ -50,14 +49,6 @@ export default {
             imagen2,
             send,
         }
-    },
-    created() {
-        fetch('https://demo1761734.mockable.io/users ')
-            .then((res) => res.json())
-            .then((posts) => {
-                this.posts = posts
-                console.log(posts);
-            });
     }
 }
 
@@ -91,6 +82,14 @@ export default {
     margin-left: 35%;
     padding: 2%;
     margin-top: 25%;
+    border-bottom: .5px solid #1953a3;
+    animation: Logo 10s linear infinite;
+}
+
+@keyframes Logo {
+    0% {
+        transform: rotateY(360deg);
+    }
 }
 
 .content {

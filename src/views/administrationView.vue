@@ -5,7 +5,7 @@
             <div class="number1 ">
                 <h1>{{ numberCategory }}</h1>
                 <h2>numero de categorias</h2>
-                <h1 @click="modal1" class="add">+</h1>
+                <h1 @click="modal1" class="add"><img :src="option" alt="" class="option"></h1>
             </div>
             <div class="number1 number2">
                 <div class="ciruloafuera">
@@ -22,7 +22,7 @@
             <div class="number1">
                 <h1>{{ numberSubCategory }}</h1>
                 <h2>numero de subcategoria</h2>
-                <h1 @click="modal2" class="add">+</h1>
+                <h1 @click="modal2" class="add"><img :src="option" alt="" class="option"></h1>
             </div>
             <div class="number1 number2">
                 <div class="ciruloafuera">
@@ -38,7 +38,7 @@
             <div class="number1">
                 <h1>{{ numberFrase }}</h1>
                 <h2>numero de frases</h2>
-                <h1 @click="modal3" class="add">+</h1>
+                <h1 @click="modal3" class="add"><img :src="option" alt="" class="option"></h1>
             </div>
             <div class="number1 number2">
                 <div class="ciruloafuera">
@@ -53,9 +53,12 @@
         <div class="containerGrafica">
             <h3>contenedor unico</h3>
             <ul>
-                <li v-for="(post, index) in posts " :key="index">{{ post.tipesentence }}
-                    :{{ post.subTypeSentences }}
-                    - {{ post.sentenceTxt }}</li>
+                <li v-for="(dataMock, index) in dataMockable" :key="index">
+                    <span>indice: </span>{{ dataMock.sentenceID }}
+                    <span>Text English </span>{{ dataMock.englishText }}
+                    <span>Text Spanish</span>{{ dataMock.spanishText }}
+                    <hr>
+                </li>
             </ul>
 
         </div>
@@ -75,7 +78,8 @@
 <script>
 import { ref, renderSlot } from 'vue';
 import modalTSView from './modalTSView.vue';
-import modalFView from './modalFView.vue'
+import modalFView from './modalFView.vue';
+import getsentences from '../service/getsentences';
 
 export default {
     components: {
@@ -83,6 +87,7 @@ export default {
         modalFView
     },
     setup() {
+        const option = '../../public/ajustes.png';
         const numberFrase = 250;
         const numberCategory = 20;
         const numberSubCategory = 60;
@@ -109,6 +114,7 @@ export default {
         const modal3 = () => {
             modalF.value = true;
         }
+        const dataMockable = ref([]);
         return {
             numberFrase,
             numberCategory,
@@ -122,15 +128,20 @@ export default {
             modalF,
             modalClose,
             modalClose2,
+            option,
+            dataMockable,
 
         }
     },
+    methods: {
+        async getDataMock() {
+            const responce = await getsentences.getDataMock();
+            this.dataMockable = responce.data;
+            console.log(this.dataMockable);
+        }
+    },
     created() {
-        fetch(' https://demo1761734.mockable.io/frases')
-            .then((res) => res.json())
-            .then((posts) => {
-                this.posts = posts;
-            });
+        this.getDataMock();
     }
 }
 
@@ -138,6 +149,11 @@ export default {
 </script>
 
 <style>
+.option {
+    width: 20px;
+    height: 20px;
+}
+
 .containerGrafica {
     background-color: white;
     text-align: center;

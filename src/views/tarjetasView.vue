@@ -1,19 +1,10 @@
 <template>
     <div class="all">
-        <div class="card" draggable="true">
+
+        <div class="card" draggable="true" v-for="(sentenceData, index) in sentencesData" :key="sentenceData.sentenceID">
             <div class="circle"></div>
-            <p class="text English"> 1{{ textEnglish }}</p>
-            <p class="text spanish">{{ textSpanish }}</p>
-        </div>
-        <div class="card" draggable="true">
-            <div class="circle"></div>
-            <p class="text English"> 1{{ textEnglish }}</p>
-            <p class="text spanish">{{ textSpanish }}</p>
-        </div>
-        <div class="card" draggable="true">
-            <div class="circle"></div>
-            <p class="text English"> 1{{ textEnglish }}</p>
-            <p class="text spanish">{{ textSpanish }}</p>
+            <p class="text English"> {{ sentenceData.englishText }}</p>
+            <p class="text spanish">{{ sentenceData.spanishText }}</p>
         </div>
 
     </div>
@@ -21,14 +12,27 @@
 
 <script>
 import { ref } from 'vue';
+import getsentences from '../service/getsentences';
 export default {
     setup() {
         const textEnglish = ref('Could I see the menu, please');
         const textSpanish = ref('¿Podria ver el menú, por favor?');
+        const sentencesData = ref([]);
         return {
             textEnglish,
             textSpanish,
+            sentencesData,
         }
+    },
+    methods: {
+        async getDataMock() {
+            const responce = await getsentences.getDataMock();
+            this.sentencesData = responce.data;
+            console.log(this.sentencesData);
+        }
+    },
+    created() {
+        this.getDataMock();
     }
 }
 

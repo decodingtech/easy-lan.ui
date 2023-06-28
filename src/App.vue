@@ -21,5 +21,6 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 .links {
   margin-left: 20px;
+  color: white;
 }
 </style>
