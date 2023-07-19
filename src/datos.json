@@ -1,0 +1,29 @@
+[
+    {
+        "tipesentence":"Airport",
+        "subTypeSentences": "counter",
+        "level":"basic",
+        "studentID":"20",
+        "sentenceID": 100,
+        "sentenceTxt":"Which gate should I board from?",
+        "status": "sin elegir"
+    },
+    {
+        "tipesentence":"Restaurant",
+        "subTypeSentences": "counter",
+        "level":"basic",
+        "studentID":10,
+        "sentenceID": 200,
+        "sentenceTxt":"a table for five",
+        "status": "sin elegir"
+    },
+    {
+        "tipesentence": "Airport",
+        "subTypeSentences": "access",
+        "level": "basic",
+        "studentID": 300,
+        "sentenceID": 101,
+        "sentenceTxt": "Where is the bathroom?",
+        "status": "sin elegir"
+    }
+]
