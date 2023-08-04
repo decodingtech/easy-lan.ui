@@ -1,12 +1,12 @@
 <template>
-    <div class="modal">
+    <div class="modalP">
         <div class="content-modal">
             <h1>Created</h1>
             <h3>{{ nombre }}</h3>
-            <p>Escriba la {{ nombre }} que desee agregar </p>
-            <input type="text" class="inputText">
+            <p>Escriba la {{ nombre }} que desee agregar {{ nombreCategory }}</p>
+            <input v-model="nombreCategory" type="text" class="inputText">
             <br>
-            <button class="save first">Save</button>
+            <button class="save first" @click="saveCategory">Save</button>
         </div>
 
         <div class="content-modal2">
@@ -30,6 +30,7 @@
     </div>
 </template>
 <script >
+import postcategoria from '../service/postcategoria';
 import { ref } from 'vue';
 
 export default {
@@ -39,10 +40,40 @@ export default {
             default: 'Nothing'
         }
     },
-    setup(props) {
-        return {
+    data(props) {
+        const nombreCategory = ref('');
+        let counter1 = ref(0);
+
+        const saveCategory = () => {
+            let nom = props.nombre + "ID";
+            let type = props.nombre + "Text";
+
+            const saveData = {
+                nom: counter1.value,
+                type: nombreCategory.value
+            }
+
+            try {
+                const responce = postcategoria.postData(saveData);
+                counter1.value++;
+                alert("Se ha agregado correctamente");
+                console.log("Data", saveData);
+                console.log("post", responce);
+            } catch (error) {
+                alert("Error al enviar los datos");
+                console.log("Error: ", error.message);
+            }
         }
-    }
+        return {
+            nombreCategory,
+            saveCategory,
+        }
+    },
+    methods: {
+        messageE() {
+            alert("hello", this.counter1);
+        }
+    },
 }
 
 
@@ -90,14 +121,14 @@ export default {
 
 .content-modal {
     background-color: rgb(80, 154, 239);
-    width: 45%;
+    width: 35%;
     border-radius: 20px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.685);
 }
 
 .content-modal2 {
     background-color: rgb(174, 210, 246);
-    width: 45%;
+    width: 35%;
     margin-left: 2%;
     border-radius: 20px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.685);
@@ -105,19 +136,19 @@ export default {
 
 .content-modal3 {
     background-color: rgb(80, 154, 239);
-    width: 45%;
+    width: 35%;
     margin-left: 2%;
     border-radius: 20px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.685);
 }
 
-.modal {
+.modalP {
     position: absolute;
     background-color: rgb(60, 84, 129);
-    width: 80%;
+    width: 70%;
     height: 75%;
-    margin-left: 8%;
-    margin-top: 3.5%;
+    margin-left: 13%;
+    margin-top: 3%;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgb(0, 0, 0);
     text-align: center;

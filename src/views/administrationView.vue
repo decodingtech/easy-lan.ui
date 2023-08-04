@@ -1,92 +1,106 @@
 <template>
-    <div class="allContainer">
-
-        <div class="container1">
-            <div class="number1 ">
-                <h1>{{ numberCategory }}</h1>
-                <h2>numero de categorias</h2>
-                <h1 @click="modal1" class="add"><img :src="option" alt="" class="option"></h1>
-            </div>
-            <div class="number1 number2">
-                <div class="ciruloafuera">
-                    <div class="circulodentro">
-                        <h3>0%</h3>
-                    </div>
-                </div>
-                <hr>
-                <h2>Uso de categorias</h2>
-            </div>
-        </div>
-
-        <div class="container2">
-            <div class="number1">
-                <h1>{{ numberSubCategory }}</h1>
-                <h2>numero de subcategoria</h2>
-                <h1 @click="modal2" class="add"><img :src="option" alt="" class="option"></h1>
-            </div>
-            <div class="number1 number2">
-                <div class="ciruloafuera">
-                    <div class="circulodentro">
-                        <h3>0%</h3>
-                    </div>
-                </div>
-                <hr>
-                <h2>Uso de subcategorias</h2>
-            </div>
-        </div>
-        <div class="container3">
-            <div class="number1">
-                <h1>{{ numberFrase }}</h1>
-                <h2>numero de frases</h2>
-                <h1 @click="modal3" class="add"><img :src="option" alt="" class="option"></h1>
-            </div>
-            <div class="number1 number2">
-                <div class="ciruloafuera">
-                    <div class="circulodentro">
-                        <h3>0%</h3>
-                    </div>
-                </div>
-                <hr>
-                <h2>Uso de frases</h2>
-            </div>
-        </div>
-        <div class="containerGrafica">
-            <h3>contenedor unico</h3>
-            <ul>
-                <li v-for="(dataMock, index) in dataMockable" :key="index">
-                    <span>indice: </span>{{ dataMock.sentenceID }}
-                    <span>Text English </span>{{ dataMock.englishText }}
-                    <span>Text Spanish</span>{{ dataMock.spanishText }}
-                    <hr>
-                </li>
-            </ul>
-
-        </div>
-    </div>
     <div>
-        <div v-show="modal" class="modal">
-            <h1 class="modalclose" @click="modalClose"></h1>
-            <modalTSView :nombre="nombre" />
+        <div class="allContainer">
+            <div class="container123">
+                <div class="container1">
+                    <div class="number1 ">
+                        <h1>{{ numberCategory }}</h1>
+                        <h2>numero de categorias</h2>
+                        <h1 @click="modal1" class="add"><img :src="option" alt="" class="option"></h1>
+                    </div>
+                    <div class="number1 number2">
+                        <div class="ciruloafuera">
+                            <div class="circulodentro">
+                                <h3>0%</h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <h2>Uso de categorias</h2>
+                    </div>
+                </div>
+
+                <div class="container2">
+                    <div class="number1">
+                        <h1>{{ numberSubCategory }}</h1>
+                        <h2>numero de subcategoria</h2>
+                        <h1 @click="modal2" class="add"><img :src="option" alt="" class="option"></h1>
+                    </div>
+                    <div class="number1 number2">
+                        <div class="ciruloafuera">
+                            <div class="circulodentro">
+                                <h3>0%</h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <h2>Uso de subcategorias</h2>
+                    </div>
+                </div>
+                <div class="container3">
+                    <div class="number1">
+                        <h1>{{ numberFrase }}</h1>
+                        <h2>numero de frases</h2>
+                        <h1 @click="modal3" class="add"><img :src="option" alt="" class="option"></h1>
+                    </div>
+                    <div class="number1 number2">
+                        <div class="ciruloafuera">
+                            <div class="circulodentro">
+                                <h3>0%</h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <h2>Uso de frases</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="containerGrafica">
+                <h3>contenedor unico</h3>
+                <ul>
+                    <li v-for="(dataMock, index) in dataMockable" :key="index">
+                        <span>indice: </span>{{ dataMock.sentenceID }}
+                        <span>Text English </span>{{ dataMock.englishText }}
+                        <span>Text Spanish</span>{{ dataMock.spanishText }}
+                        <hr>
+                    </li>
+                </ul>
+                <hr>
+                <ul>
+                    <li v-for="(database, index) in databasearray" :key="index">
+                        <span>indice: </span>{{ database.senId }}
+                        <span>Text English </span>{{ database.senEnglish }}
+                        <span>Text Spanish</span>{{ database.senSpanish }}
+                        <span>Status</span>{{ database.status }}
+                        <hr>
+                    </li>
+                </ul>
+
+            </div>
         </div>
-        <div v-show="modalF" class="modal">
-            <h1 class="modalclose" @click="modalClose2"></h1>
-            <modalFView />
+        <div>
+            <div v-show="modal" class="modal">
+                <h1 class="modalclose" @click="modalClose"></h1>
+                <modalTSView :nombre="nombre" />
+            </div>
+            <div v-show="modalF" class="modal">
+                <h1 class="modalclose" @click="modalClose2"></h1>
+                <modalFView />
+            </div>
         </div>
     </div>
 </template>
 
-<script>
+<script >
 import { ref, renderSlot } from 'vue';
 import modalTSView from './modalTSView.vue';
 import modalFView from './modalFView.vue';
 import getsentences from '../service/getsentences';
+import axios from 'axios';
 
 export default {
     components: {
         modalTSView,
         modalFView
     },
-    setup() {
+    data() {
         const option = '../../public/ajustes.png';
         const numberFrase = 250;
         const numberCategory = 20;
@@ -114,7 +128,7 @@ export default {
         const modal3 = () => {
             modalF.value = true;
         }
-        const dataMockable = ref([]);
+        const databasearray = ref([]);
         return {
             numberFrase,
             numberCategory,
@@ -129,38 +143,46 @@ export default {
             modalClose,
             modalClose2,
             option,
-            dataMockable,
+            databasearray,
 
         }
     },
     methods: {
-        async getDataMock() {
-            const responce = await getsentences.getDataMock();
-            this.dataMockable = responce.data;
-            console.log(this.dataMockable);
-        }
+        async getdatabase() {
+            const responce = await axios.get("http://localhost:8080/api/v1/sentences/allsentences");
+            this.databasearray = responce.data;
+            console.log("prueba: ", this.databasearray)
+        },
+
     },
     created() {
-        this.getDataMock();
+        this.getdatabase();
     }
 }
 
 
 </script>
 
-<style>
+<style scoped>
+.allContainer {
+    display: flex;
+}
+
 .option {
     width: 20px;
     height: 20px;
 }
 
+.container123 {
+    width: 53%;
+}
+
 .containerGrafica {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     text-align: center;
     width: 47%;
     height: 666px;
-    float: right;
-    margin-top: -43.85%;
+    overflow-y: auto;
 }
 
 .ciruloafuera {
@@ -186,37 +208,39 @@ export default {
     background-color: rgba(173, 222, 253, 0.553);
     display: flex;
     padding: 17px;
-    width: 50%;
+    width: 90%;
 }
 
 .container2 {
     background-color: rgba(145, 215, 250, 0.571);
     display: flex;
     padding: 17px;
-    width: 50%;
+    width: 90%;
 }
 
 .container3 {
     background-color: rgba(173, 222, 253, 0.548);
     display: flex;
     padding: 17px;
-    width: 50%;
+    width: 90%;
 }
+
 
 .modalclose {
     background-color: rgba(147, 147, 148, 0.612);
-    width: 99.5%;
-    height: 99.5%;
-    margin-top: -0.1%;
-    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: 0%;
+    position: inherit;
     box-shadow: 0px 0px 30px rgb(0, 0, 0);
+    backdrop-filter: blur(2px);
 }
 
 .modal {
-    width: 99.5%;
-    height: 98%;
-    margin-top: -44.7%;
     position: absolute;
+    width: 99.2%;
+    height: 99%;
+    margin-top: -45%;
 }
 
 .add {

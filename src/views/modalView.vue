@@ -25,6 +25,9 @@
                 </div>
             </label>
         </div>
+        <div>
+            <button>Aceptar</button>
+        </div>
     </div>
 </template>
 <script setup>
