@@ -8,10 +8,8 @@
             <img :src="imagen2" alt="" class="imagen-user">
             <h3>Iniciar sesión</h3>
             <div class="input-text">
-                <!--<label for="" class="text">Nombre de usuario</label><br>-->
                 <input class="input" id="user" type="text" placeholder="Nombre de usuario" v-model="user">
                 <br>
-                <!--<label for="" class="text">Contraseña</label><br>-->
                 <input class="input" id="password" type="password" placeholder="Contraseña" v-model="password">
             </div>
             <br>

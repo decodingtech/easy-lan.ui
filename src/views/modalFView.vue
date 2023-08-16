@@ -23,9 +23,6 @@
         <div class="content-modal2">
             <h1>Update</h1>
             <p>Seleccione la frase en inlges que desee modificar </p>
-            <!--
-                <input type="text" class="inputText">                
-            -->
             <select name="" id="" v-model="contentPUT" class="selectOption">
                 <option v-for="(data, index) in databasearray">{{ data.senId }} {{ data.senEnglish }}</option>
             </select>
@@ -44,7 +41,6 @@
         <div class="content-modal3">
             <h1>Delete</h1>
             <p>Escriba la frase en Ingles a elimiar </p>
-            <!--<input type="text" class="inputText"> -->
             <br>
             <select name="" id="" v-model="indice" class="selectOption">
                 <option v-for="(data, index) in databasearray">{{ data.senId }} {{ data.senEnglish }}</option>
@@ -57,7 +53,7 @@
 </template>
 <script >
 import { ref } from 'vue';
-import axios from 'axios';
+import getsentences from '../service/getsentences';
 export default {
     setup() {
         const textEng = ref('');
@@ -82,51 +78,40 @@ export default {
     },
     methods: {
         async getdatabase() {
-            const responce = await axios.get("http://localhost:8080/api/v1/sentences/allsentences");
+            const responce = await getsentences.getDataSentences();
             this.databasearray = responce.data;
-            console.log("prueba: ", this.databasearray)
         },
+
         async postSentence() {
             const sentence = {
                 "senEnglish": this.textEng,
                 "senSpanish": this.textSpan,
             }
-            const responce = await axios.post("http://localhost:8080/api/v1/sentences/save", sentence);
+            const responce = await getsentences.postDataSentences(sentence);
         },
         async deletee() {
-            const espacio = " ";
-            this.auxArray = this.indice.split(espacio);
-            console.log(this.auxArray[0]);
-            let direccion = "http://localhost:8080/api/v1/sentences/delete/" + this.auxArray[0];
-            console.log(direccion);
-            const responce = await axios.delete(direccion);
+            this.auxArray = this.indice.split(" ");
+            const responce = await getsentences.deleteDataSentences(this.auxArray[0]);
 
         },
         async update() {
-            //const espacio = " ";
             this.auxArray = this.contentPUT.split(" ");
-            console.log(this.auxArray[0]);
             const sentenceUpdate = {
                 "senId": this.auxArray[0],
                 "senEnglish": this.textEngUpdate,
                 "senSpanish": this.textSpanUpdate,
             }
-            console.log(sentenceUpdate);
-            const responce = await axios.post("http://localhost:8080/api/v1/sentences/save", sentenceUpdate);
+            const responce = await getsentences.updateDataSentences(sentenceUpdate);
 
         },
         select() {
-            const espacio = " ";
-            this.auxArray = this.contentPUT.split(espacio);
-            console.log(this.auxArray[0]);
+            this.auxArray = this.contentPUT.split(" ");
             for (const dat in this.databasearray) {
                 if (this.databasearray[dat].senId == this.auxArray[0]) {
                     this.textEngUpdate = this.databasearray[dat].senEnglish;
                     this.textSpanUpdate = this.databasearray[dat].senSpanish;
                 }
             }
-            console.log("llamdno a la funcion: ", this.getdatabase);
-
         }
     },
     created() {

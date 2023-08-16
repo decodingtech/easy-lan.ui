@@ -44,35 +44,11 @@ export default {
         const nombreCategory = ref('');
         let counter1 = ref(0);
 
-        const saveCategory = () => {
-            let nom = props.nombre + "ID";
-            let type = props.nombre + "Text";
-
-            const saveData = {
-                nom: counter1.value,
-                type: nombreCategory.value
-            }
-
-            try {
-                const responce = postcategoria.postData(saveData);
-                counter1.value++;
-                alert("Se ha agregado correctamente");
-                console.log("Data", saveData);
-                console.log("post", responce);
-            } catch (error) {
-                alert("Error al enviar los datos");
-                console.log("Error: ", error.message);
-            }
-        }
         return {
             nombreCategory,
-            saveCategory,
         }
     },
     methods: {
-        messageE() {
-            alert("hello", this.counter1);
-        }
     },
 }
 

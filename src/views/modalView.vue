@@ -32,8 +32,7 @@
 </template>
 <script setup>
 import { ref } from 'vue';
-import datos from '../datos.json'
-import columnsView from '../views/columnsView.vue'
+import datos from '../datos.json';
 const category = ref('');
 const subcategory = ref('');
 

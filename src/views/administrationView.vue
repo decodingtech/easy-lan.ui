@@ -93,7 +93,6 @@ import { ref, renderSlot } from 'vue';
 import modalTSView from './modalTSView.vue';
 import modalFView from './modalFView.vue';
 import getsentences from '../service/getsentences';
-import axios from 'axios';
 
 export default {
     components: {
@@ -149,9 +148,8 @@ export default {
     },
     methods: {
         async getdatabase() {
-            const responce = await axios.get("http://localhost:8080/api/v1/sentences/allsentences");
+            const responce = await getsentences.getDataSentences();
             this.databasearray = responce.data;
-            console.log("prueba: ", this.databasearray)
         },
 
     },
@@ -238,9 +236,10 @@ export default {
 
 .modal {
     position: absolute;
-    width: 99.2%;
-    height: 99%;
-    margin-top: -45%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .add {

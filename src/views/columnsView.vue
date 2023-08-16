@@ -7,42 +7,20 @@
             <column :nameColumn="'Done / Realizado'" :saveData="doneSentence" :statusSentence="3" :update="saveData" />
         </div>
 
-        <div class="pop">
-            <div v-show="popWindows1" class="popWindow">
-                <h3 @click="popWindowsClose" class="close"></h3>
-                <modalView />
-            </div>
-        </div>
-
     </div>
 </template>
 <script >
-import modalView from './modalView.vue';
 import column from './column.vue';
 import { ref } from 'vue';
-import axios from 'axios';
+import getsentences from '../service/getsentences';
 
 export default {
     components: {
-        modalView,
         column
     },
     data() {
-        const popWindows1 = ref(false);
-        const add = '../../public/add.png';
-        const popWindowOpen = () => {
-            popWindows1.value = true;
-        }
-        const popWindowsClose = () => {
-            popWindows1.value = false;
-        }
-
 
         return {
-            popWindows1,
-            popWindowOpen,
-            popWindowsClose,
-            add,
             saveData: [],
         }
 
@@ -60,9 +38,8 @@ export default {
     },
     methods: {
         async getDataBase() {
-            const responce = await axios.get('http://localhost:8080/api/v1/sentences/allsentences');
+            const responce = await getsentences.getDataSentences()
             this.saveData = responce.data;
-            console.log("Datos obtenidos: ", this.saveData)
 
         }
     },
