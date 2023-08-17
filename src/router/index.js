@@ -10,11 +10,8 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
-      path: '/columns',
+      path:'/columns',
       name: 'columns',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/columnsView.vue')
     },
     {
@@ -35,7 +32,7 @@ const router = createRouter({
     {
       path:'/signin',
       name:'signin',
-      component: () => import('../views/sign-inView.vue')
+      component: () => import('../views/popWindowSentence.vue')
     },
     {
       path:'/registre', 
@@ -47,11 +44,6 @@ const router = createRouter({
       name: 'forget',
       component: () => import ('../views/forgetPassView.vue')
     },
-    {
-      path:'/cards',
-      name: 'cards',
-      component: () => import('../views/tarjetasView.vue')
-    }
   ]
 })
 

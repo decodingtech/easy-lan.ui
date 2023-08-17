@@ -10,7 +10,6 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterLink class="links" to="/modal"> Modal</RouterLink>
     <RouterLink class="links" to="/modalTS"> modalTS</RouterLink>
     <RouterLink class="links" to="/signin"> Sign In</RouterLink>
-    <RouterLink class="links" to="/cards">Cards</RouterLink>
   </nav>
 
   <main>

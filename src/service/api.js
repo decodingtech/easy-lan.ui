@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default () =>{
     return axios.create({
-        baseURL : 'https://demo1761734.mockable.io',
+        baseURL : 'http://localhost:8080/api/v1/sentences',
         headers:{
             'Accept': 'application/json',
             "Content-Type": 'application/json'
